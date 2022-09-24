@@ -1,0 +1,81 @@
+"Basics"
+let mapleader=" "
+
+set scrolloff=8
+set sidescrolloff=8
+
+set number
+set relativenumber
+
+set hlsearch
+set incsearch
+
+set showmode
+
+set clipboard=unnamed
+set clipboard+=ideaput
+
+set ignorecase smartcase
+
+set history=1000
+
+"Plugins"
+set commentary
+set surround
+set NERDTree
+set matchit
+set easymotion
+set ideajoin
+
+"Mapping"
+nmap <leader>/ :noh<return><CR>
+
+nmap <leader>a <Action>(NewFile)
+nmap <A-m> :NERDTreeToggle<CR>
+
+nmap <leader>h <Action>(PreviousTab)
+nmap <leader>l <Action>(NextTab)
+nmap <leader>q <Action>(CloseContent)
+nmap <leader>Q <Action>(ReopenClosedTab)
+
+nmap <leader>sh <Action>(SplitHorizontally)
+nmap <leader>sv <Action>(SplitVertically)
+nmap <A-h> <c-w>h
+nmap <A-l> <c-w>l
+nmap <A-j> <c-w>j
+nmap <A-k> <c-w>k
+
+vmap > >gv
+vmap < <gv
+
+vnoremap J :m '>+1<CR>v
+vnoremap K :m '<-2<CR>v
+
+nmap J 4j
+nmap K 4k
+
+nmap <C-j> <Action>(EditorJoinLines)
+nmap <C-k> <Action>(QuickJavaDoc
+
+nmap <leader>n <Action>(GotoNextElementUnderCaretUsage)
+nmap <leader>N <Action>(GotoPrevElementUnderCaretUsage)
+
+nmap <leader>df <Action>(QuickImplementations)
+nmap <leader>e <Action>(ShowErrorDescription)
+
+nmap <leader>b <Action>(ToggleLineBreakpoint)
+nmap <leader>db <Action>(Debug)
+nmap <leader>dc <Action>(ChooseDebugConfiguration)
+nmap <leader>c <Action>(Stop)<Action>(HideActiveWindow)
+
+nmap <leader>r <Action>(RenameElement)
+nmap <leader>ff <Action>(ReformatCode)
+nmap <leader>fa <Action>(SearchEverywhere)
+
+vmap <C-c> y<Esc>
+vmap <C-v> p<Esc>
+imap <C-v> <Esc>p
+
+map <Enter> <Action>(EditorSelectWord)
+map <BS> <Action>(EditorUnSelectWord)
+
