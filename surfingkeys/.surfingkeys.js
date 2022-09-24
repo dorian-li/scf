@@ -6,7 +6,7 @@ api.map("<Space>h", "E");
 api.map("<Space>l", "R");
 api.map("u", "S");
 api.map("U", "D");
-api.map("<Space>w", "x");
+api.map("<Space>q", "x");
 // search in zhihu with search suggestions return
 api.addSearchAlias(
   "z",
