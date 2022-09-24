@@ -1,7 +1,8 @@
 # scf
 
-Here are some config files I use every day.
+These are some files of my Windows / Linux config.🍻
 
-I try to keep them a good commented, you can refer to them if insterested.
+## Checklist
 
-Keep them up to date!🍻
+- SurfingKeys
+- IdeaVim
