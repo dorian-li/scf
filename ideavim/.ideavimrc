@@ -55,7 +55,7 @@ nmap J 4j
 nmap K 4k
 
 nmap <C-j> <Action>(EditorJoinLines)
-nmap <C-k> <Action>(QuickJavaDoc
+nmap <C-k> <Action>(QuickJavaDoc)
 
 nmap <leader>n <Action>(GotoNextElementUnderCaretUsage)
 nmap <leader>N <Action>(GotoPrevElementUnderCaretUsage)
