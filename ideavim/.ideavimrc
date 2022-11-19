@@ -78,7 +78,7 @@ map T <Plug>(easymotion-Tl)
 nmap <leader>n <Action>(GotoNextElementUnderCaretUsage)
 nmap <leader>N <Action>(GotoPrevElementUnderCaretUsage)
 
-nmap <leader>df <Action>(QuickImplementations)
+nmap gr <Action>(FindUsages)
 nmap <leader>e <Action>(ShowErrorDescription)
 
 nmap <leader>b <Action>(ToggleLineBreakpoint)
