@@ -68,6 +68,13 @@ nmap K 4k
 nmap <C-j> <Action>(EditorJoinLines)
 nmap <C-k> <Action>(QuickJavaDoc)
 
+set g:EasyMotion_do_mapping=0
+map s <Plug>(easymotion-s2)
+map f <Plug>(easymotion-fl)
+map F <Plug>(easymotion-Fl)
+map t <Plug>(easymotion-tl)
+map T <Plug>(easymotion-Tl)
+
 nmap <leader>n <Action>(GotoNextElementUnderCaretUsage)
 nmap <leader>N <Action>(GotoPrevElementUnderCaretUsage)
 
@@ -80,8 +87,8 @@ nmap <leader>dc <Action>(ChooseDebugConfiguration)
 nmap <leader>c <Action>(Stop)<Action>(HideActiveWindow)
 
 nmap <leader>r <Action>(RenameElement)
-nmap <leader>ff <Action>(ReformatCode)
-nmap <leader>fa <Action>(SearchEverywhere)
+nmap <leader>f <Action>(ReformatCode)
+nmap <leader>sa <Action>(SearchEverywhere)
 
 vmap <C-c> y<Esc>
 vmap <C-v> p<Esc>
