@@ -6,3 +6,4 @@ These are some files of my Windows / Linux config.🍻
 
 - SurfingKeys
 - IdeaVim
+- LunarVim
