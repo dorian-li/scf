@@ -86,6 +86,7 @@ formatters.setup({
 	{ command = "black" },
 	{ command = "isort" },
 	{ command = "stylua" },
+	{ command = "shfmt" },
 	{
 		command = "prettier",
 		extra_args = { "--print-width", "100" },
