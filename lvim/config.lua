@@ -39,6 +39,11 @@ lvim.builtin.which_key.mappings["t"] = {
 	w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
 }
 
+lvim.builtin.which_key.mappings["lo"] = {
+	"<cmd>:SymbolsOutline<cr>",
+	"Symbols Outline",
+}
+
 -- -- Change theme settings
 -- lvim.colorscheme = "lunar"
 
@@ -141,6 +146,12 @@ lvim.plugins = {
 					},
 				},
 			})
+		end,
+	},
+	{
+		"simrat39/symbols-outline.nvim",
+		config = function()
+			require("symbols-outline").setup()
 		end,
 	},
 }
