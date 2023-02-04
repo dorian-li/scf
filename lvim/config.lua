@@ -51,6 +51,17 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
 
+-- Enable incremental selection
+lvim.builtin.treesitter.incremental_selection = {
+	enable = true,
+	keymaps = {
+		init_selection = "<cr>", -- set to `false` to disable one of the mappings
+		node_incremental = "<cr>",
+		scope_incremental = "<cr>",
+		node_decremental = "<bs>",
+	},
+}
+
 -- lvim.builtin.treesitter.ignore_install = { "haskell" }
 
 -- -- generic LSP settings <https://www.lunarvim.org/docs/languages#lsp-support>
@@ -133,15 +144,14 @@ lvim.plugins = {
 		end,
 	},
 }
-
--- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "zsh",
---   callback = function()
---     -- let treesitter use bash highlight for zsh files as well
---     require("nvim-treesitter.highlight").attach(0, "bash")
---   end,
--- })
+-- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "zsh",
+	callback = function()
+		-- let treesitter use bash highlight for zsh files as well
+		require("nvim-treesitter.highlight").attach(0, "bash")
+	end,
+})
 
 -- Setup dap for python
 lvim.builtin.dap.active = true
