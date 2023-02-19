@@ -1,0 +1,49 @@
+#!/bin/bash
+
+host_ip="$(grep "nameserver" </etc/resolv.conf | cut -f 2 -d " ")"
+port="4780"
+proxy="http://$host_ip:$port"
+
+export ALL_PROXY="$proxy"
+export all_proxy="$proxy"
+export HTTP_PROXY="$proxy"
+export http_proxy="$proxy"
+export HTTPS_PROXY="$proxy"
+export https_proxy="$proxy"
+
+if command -v git &>/dev/null; then
+	printf "%s\n" \
+		"[http \"https://github.com\"]" \
+		"  proxy = $proxy" \
+		"[user]" \
+		"  email = 49279922+dorian-li@users.noreply.github.com" \
+		"  name = dorian-li" \
+		"[credential]" \
+		"  helper = store" \
+		>~/.gitconfig
+fi
+
+if command -v conda &>/dev/null; then
+	printf "%s\n" \
+		"proxy_servers:" \
+		"  http: $proxy" \
+		"  https: $proxy" \
+		"changeps1: false" \
+		>~/.condarc
+fi
+
+if command -v npm &>/dev/null; then
+	printf "%s\n" \
+		"proxy=$proxy/" \
+		"https-proxy=$proxy/" \
+    >~/.npmrc
+fi
+
+if command -v pip &>/dev/null; then
+	[ ! -d "$HOME/.config" ] && mkdir -p "$HOME/.config" 2> /dev/null
+	[ ! -d "$HOME/.config/pip" ] && mkdir -p "$HOME/.config/pip" 2> /dev/null
+	printf "%s\n" \
+		"[global]" \
+		"proxy = $proxy" \
+		>~/.config/pip/pip.conf
+fi
