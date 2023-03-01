@@ -1,6 +1,6 @@
 #! /bin/bash
 config_file=~/.config/lvim/config.lua
-if [ -L "$config_file" ]
+if [ -e "$config_file" ]
 then
   rm "$config_file"
 fi
