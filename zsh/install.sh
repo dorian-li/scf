@@ -2,15 +2,15 @@
 proxyrc_file=~/.proxyrc
 tmux_file=~/.tmux.conf
 zshrc_file=~/.zshrc
-if [ -L "$proxyrc_file" ]
+if [ -e "$proxyrc_file" ]
 then
   rm "$proxyrc_file"
 fi
-if [ -L "$tmux_file" ]
+if [ -e "$tmux_file" ]
 then
   rm "$tmux_file"
 fi
-if [ -L "$zshrc_file" ]
+if [ -e "$zshrc_file" ]
 then
   rm "$zshrc_file"
 fi
