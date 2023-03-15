@@ -51,8 +51,6 @@ if [ ! -f "$ANTIGEN" ]; then
 fi
 
 source "$ANTIGEN"
-antigen bundle conda-incubator/conda-zsh-completion
-antigen bundle dorian-li/fnm
 zstyle ':prezto:*:*' color 'yes'
 zstyle ':prezto:module:prompt' theme 'fskwp'
 zstyle ':prezto:module:prompt' pwd-length 'short'
@@ -67,6 +65,8 @@ zstyle ':prezto:load' pmodule \
   'prompt' \
 
 antigen use prezto
+antigen bundle conda-incubator/conda-zsh-completion
+antigen bundle dorian-li/fnm
 antigen bundle zdharma-continuum/fast-syntax-highlighting
 antigen apply
 
