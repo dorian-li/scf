@@ -75,3 +75,5 @@ if grep -qi wsl /proc/version
 then
   source "$HOME/.proxyrc"
 fi
+
+[[ -s "/home/dorian/.gvm/scripts/gvm" ]] && source "/home/dorian/.gvm/scripts/gvm"
