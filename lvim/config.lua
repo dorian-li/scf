@@ -154,6 +154,14 @@ lvim.plugins = {
 			require("symbols-outline").setup()
 		end,
 	},
+	{
+		"iamcco/markdown-preview.nvim",
+		build = "cd app && npm install",
+		ft = "markdown",
+		config = function()
+			vim.g.mkdp_echo_preview_url = 1
+		end,
+	},
 }
 -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
 vim.api.nvim_create_autocmd("FileType", {
