@@ -1,12 +1,12 @@
 // setting
 // try to be the same as neovim
-api.map("J", "d");
-api.map("K", "e");
-api.map("<Space>h", "E");
-api.map("<Space>l", "R");
+api.map("<Ctrl-d>", "d");
+api.map("<Ctrl-u>", "e");
+api.map("H", "E");
+api.map("L", "R");
 api.map("u", "S");
-api.map("U", "D");
-api.map("<Space>q", "x");
+api.map("<Ctrl-r>", "D");
+api.map("<Space>c", "x");
 // search in zhihu with search suggestions return
 api.addSearchAlias(
   "z",
@@ -62,7 +62,7 @@ api.mapkey("<Space>sr", "Video Speed Reset", function() {
   const acc_btn_1=document.querySelector(get_bilibili_acc_btn_selector('1.0x'))
   acc_btn_1.click()
 }, {domain: /bilibili\.com/i});
-// use Q to loopup english/chinese words with youdao
+// use Q to lookup english/chinese words with youdao
 api.Front.registerInlineQuery({
   url: function (q) {
     return `http://dict.youdao.com/w/eng/${q}/#keyfrom=dict2.index`;
