@@ -99,23 +99,35 @@ lvim.builtin.treesitter.incremental_selection = {
 -- linters and formatters <https://www.lunarvim.org/docs/languages#lintingformatting>
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
+	-- python
 	{ command = "black" },
 	{ command = "isort" },
+	-- lua
 	{ command = "stylua" },
+	-- golang
+	{ command = "goimports" },
+	{ command = "gofumpt" },
+	-- shell
 	{ command = "shfmt" },
+	-- frontend
 	{
 		command = "prettier",
-		extra_args = { "--print-width", "100" },
-		filetypes = { "typescript", "typescriptreact" },
+		extra_args = { "--print-width", "80" },
+		filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "css" },
 	},
 })
 local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
+	-- python
 	{ command = "flake8", filetypes = { "python" } },
+	-- frontend
+	{ command = "eslint", filetypes = { "javascript", "typescript" } },
+	-- shell
 	{
 		command = "shellcheck",
 		args = { "--severity", "warning" },
 	},
+	-- spell
 	{ command = "codespell", filetypes = { "javascript", "python" } },
 })
 
@@ -131,6 +143,13 @@ lvim.plugins = {
 			require("nvim-surround").setup()
 		end,
 	},
+	{
+		"simrat39/symbols-outline.nvim",
+		config = function()
+			require("symbols-outline").setup()
+		end,
+	},
+	-- python
 	"AckslD/swenv.nvim",
 	"mfussenegger/nvim-dap-python",
 	{
@@ -148,12 +167,7 @@ lvim.plugins = {
 			})
 		end,
 	},
-	{
-		"simrat39/symbols-outline.nvim",
-		config = function()
-			require("symbols-outline").setup()
-		end,
-	},
+	-- markdown
 	{
 		"iamcco/markdown-preview.nvim",
 		build = "cd app && npm install",
@@ -162,6 +176,7 @@ lvim.plugins = {
 			vim.g.mkdp_echo_preview_url = 1
 		end,
 	},
+	-- frontend
 	{
 		"norcalli/nvim-colorizer.lua",
 		config = function()
@@ -177,6 +192,22 @@ lvim.plugins = {
 			})
 		end,
 	},
+	-- golang
+	{
+		"olexsmir/gopher.nvim",
+		config = function()
+			require("gopher").setup({
+				commands = {
+					go = "go",
+					gomodifytags = "gomodifytags",
+					gotests = "gotests",
+					impl = "impl",
+					iferr = "iferr",
+				},
+			})
+		end,
+	},
+	"leoluz/nvim-dap-go",
 }
 -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
 vim.api.nvim_create_autocmd("FileType", {
@@ -199,3 +230,10 @@ lvim.builtin.which_key.vmappings["d"] = {
 	name = "Debug",
 	s = { "<cmd>lua require('dap-python').debug_selection()<cr>", "Debug Selection" },
 }
+
+-- Setup dap for golang
+local dap_ok, dapgo = pcall(require, "dap-go")
+if not dap_ok then
+	return
+end
+dapgo.setup()
