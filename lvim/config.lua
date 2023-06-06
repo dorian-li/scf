@@ -21,7 +21,7 @@ lvim.format_on_save = {
 -- keymappings <https://www.lunarvim.org/docs/configuration/keybindings>
 lvim.leader = "space"
 -- add your own keymapping
-lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+-- lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
@@ -208,6 +208,47 @@ lvim.plugins = {
 		end,
 	},
 	"leoluz/nvim-dap-go",
+	-- auto install ls, linter, dap, formatter
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		config = function()
+			require("mason-tool-installer").setup({
+				ensure_installed = {
+					-- language server
+					"bash-language-server",
+					"pyright",
+					"lua-language-server",
+					"gopls",
+					"marksman",
+					"html-lsp",
+					"typescript-language-server",
+					"css-lsp",
+					"json-lsp",
+					-- formatter
+					"black",
+					"isort",
+					"stylua",
+					"goimports",
+					"gofumpt",
+					"shfmt",
+					"prettier",
+					-- linter
+					"flake8",
+					"eslint_d",
+					"shellcheck",
+					"codespell",
+					"markdownlint",
+					-- dap
+					"debugpy",
+					"go-debug-adapter",
+				},
+				auto_update = false,
+				run_on_start = true,
+				start_delay = 3000,
+				debounce_hours = nil,
+			})
+		end,
+	},
 }
 -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
 vim.api.nvim_create_autocmd("FileType", {
