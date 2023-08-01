@@ -76,9 +76,18 @@ lvim.builtin.treesitter.incremental_selection = {
 
 -- ---configure a server manually. IMPORTANT: Requires `:LvimCacheReset` to take effect
 -- ---see the full default list `:lua =lvim.lsp.automatic_configuration.skipped_servers`
--- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
--- local opts = {} -- check the lspconfig documentation for a list of all possible options
--- require("lvim.lsp.manager").setup("pyright", opts)
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
+local opts = {
+	python = {
+		analysis = {
+			autoSearchPaths = true,
+			diagnosticMode = "workspace",
+			useLibraryCodeForTypes = true,
+			stubPath = join_paths(get_runtime_dir(), "site", "pack", "opt", "python-type-stubs"),
+		},
+	},
+}
+require("lvim.lsp.manager").setup("pyright", opts)
 
 -- ---remove a server from the skipped list, e.g. eslint, or emmet_ls. IMPORTANT: Requires `:LvimCacheReset` to take effect
 -- ---`:LvimInfo` lists which server(s) are skipped for the current filetype
@@ -151,6 +160,7 @@ lvim.plugins = {
 	},
 	-- python
 	"AckslD/swenv.nvim",
+	{ "microsoft/python-type-stubs", cond = false },
 	"mfussenegger/nvim-dap-python",
 	{
 		"danymat/neogen",
