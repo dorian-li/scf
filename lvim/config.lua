@@ -83,7 +83,7 @@ local opts = {
 			autoSearchPaths = true,
 			diagnosticMode = "workspace",
 			useLibraryCodeForTypes = true,
-			stubPath = join_paths(get_runtime_dir(), "site", "pack", "opt", "python-type-stubs"),
+			stubPath = join_paths(get_runtime_dir(), "site", "pack", "lazy", "opt", "python-type-stubs"),
 		},
 	},
 }
