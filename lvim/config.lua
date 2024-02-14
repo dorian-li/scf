@@ -1,171 +1,139 @@
---[[
- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
- `lvim` is the global options object
-]]
-
--- vim options
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-vim.opt.relativenumber = true
-
--- general
-lvim.log.level = "info"
-lvim.format_on_save = {
-	enabled = true,
-	pattern = "*.lua",
-	timeout = 1000,
-}
--- to disable icons and use a minimalist setup, uncomment the following
--- lvim.use_icons = false
-
--- keymappings <https://www.lunarvim.org/docs/configuration/keybindings>
-lvim.leader = "space"
--- add your own keymapping
--- lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
-
-lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
-lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
-
--- -- Use which-key to add extra bindings with the leader-key prefix
--- lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }
--- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
-lvim.builtin.which_key.mappings["t"] = {
-	name = "+Trouble",
-	r = { "<cmd>Trouble lsp_references<cr>", "References" },
-	f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
-	d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
-	q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
-	l = { "<cmd>Trouble loclist<cr>", "LocationList" },
-	w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
-}
-
-lvim.builtin.which_key.mappings["lo"] = {
-	"<cmd>:SymbolsOutline<cr>",
-	"Symbols Outline",
-}
-
--- -- Change theme settings
--- lvim.colorscheme = "lunar"
-
-lvim.builtin.alpha.active = true
-lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.terminal.active = true
-lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
-
--- Automatically install missing parsers when entering buffer
-lvim.builtin.treesitter.auto_install = true
-
--- Enable incremental selection
-lvim.builtin.treesitter.incremental_selection = {
-	enable = true,
-	keymaps = {
-		init_selection = "<cr>", -- set to `false` to disable one of the mappings
-		node_incremental = "<cr>",
-		scope_incremental = "<cr>",
-		node_decremental = "<bs>",
-	},
-}
-
--- lvim.builtin.treesitter.ignore_install = { "haskell" }
-
--- -- generic LSP settings <https://www.lunarvim.org/docs/languages#lsp-support>
-
--- --- disable automatic installation of servers
--- lvim.lsp.installer.setup.automatic_installation = false
-
--- ---configure a server manually. IMPORTANT: Requires `:LvimCacheReset` to take effect
--- ---see the full default list `:lua =lvim.lsp.automatic_configuration.skipped_servers`
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
-local opts = {
-	python = {
-		analysis = {
-			autoSearchPaths = true,
-			diagnosticMode = "workspace",
-			useLibraryCodeForTypes = true,
-			stubPath = join_paths(get_runtime_dir(), "site", "pack", "lazy", "opt", "python-type-stubs"),
-		},
-	},
-}
-require("lvim.lsp.manager").setup("pyright", opts)
-
--- ---remove a server from the skipped list, e.g. eslint, or emmet_ls. IMPORTANT: Requires `:LvimCacheReset` to take effect
--- ---`:LvimInfo` lists which server(s) are skipped for the current filetype
--- lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
---   return server ~= "emmet_ls"
--- end, lvim.lsp.automatic_configuration.skipped_servers)
-
--- -- you can set a custom on_attach function that will be used for all the language servers
--- -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
--- lvim.lsp.on_attach_callback = function(client, bufnr)
---   local function buf_set_option(...)
---     vim.api.nvim_buf_set_option(bufnr, ...)
---   end
---   --Enable completion triggered by <c-x><c-o>
---   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
--- end
-
--- linters and formatters <https://www.lunarvim.org/docs/languages#lintingformatting>
+lvim.format_on_save.enabled = true
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
 	-- python
-	{ command = "black" },
-	{ command = "isort" },
+	{ name = "black" },
+	{ name = "isort" },
 	-- lua
-	{ command = "stylua" },
+	{ name = "stylua" },
 	-- golang
-	{ command = "goimports" },
-	{ command = "gofumpt" },
+	{ name = "goimports" },
+	{ name = "gofumpt" },
 	-- shell
-	{ command = "shfmt" },
+	{ name = "shfmt" },
 	-- frontend
 	{
-		command = "prettier",
-		extra_args = { "--print-width", "80" },
+		name = "prettier",
+		args = { "--print-width", "100" },
 		filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "css" },
 	},
 })
+
 local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
 	-- python
-	{ command = "flake8", filetypes = { "python" } },
+	{ name = "flake8", filetypes = { "python" } },
 	-- frontend
-	{ command = "eslint", filetypes = { "javascript", "typescript" } },
+	{ name = "eslint", filetypes = { "javascript", "typescript" } },
 	-- shell
 	{
-		command = "shellcheck",
+		name = "shellcheck",
 		args = { "--severity", "warning" },
 	},
 	-- spell
-	{ command = "codespell", filetypes = { "javascript", "python" } },
+	{ name = "codespell", filetypes = { "javascript", "python" } },
 })
 
--- Additional Plugins <https://www.lunarvim.org/docs/plugins#user-plugins>
+local code_actions = require("lvim.lsp.null-ls.code_actions")
+code_actions.setup({
+	{
+		name = "proselint",
+	},
+})
+
 lvim.plugins = {
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		config = function()
+			require("mason-tool-installer").setup({
+				ensure_installed = {
+					-- language server
+					"bash-language-server",
+					"pyright",
+					"lua-language-server",
+					"vim-language-server",
+					"marksman",
+					"html-lsp",
+					"typescript-language-server",
+					"css-lsp",
+					"json-lsp",
+					-- formatter
+					"black",
+					"isort",
+					"stylua",
+					"shfmt",
+					"prettier",
+					-- linter
+					"flake8",
+					"eslint_d",
+					"shellcheck",
+					"codespell",
+					"markdownlint",
+					"proselint",
+					-- dap
+					"debugpy",
+				},
+				auto_update = true,
+				run_on_start = true,
+				start_delay = 3000,
+			})
+		end,
+	},
 	{
 		"folke/trouble.nvim",
 		cmd = "TroubleToggle",
 	},
 	{
 		"kylechui/nvim-surround",
+		version = "*",
+		event = "VeryLazy",
 		config = function()
 			require("nvim-surround").setup()
 		end,
 	},
 	{
-		"simrat39/symbols-outline.nvim",
+		"hedyhli/outline.nvim",
 		config = function()
-			require("symbols-outline").setup()
+			require("outline").setup()
 		end,
 	},
+	"stevearc/dressing.nvim",
 	-- python
 	"AckslD/swenv.nvim",
-	{ "microsoft/python-type-stubs", cond = false },
-	"mfussenegger/nvim-dap-python",
+	{ "microsoft/python-type-stubs" },
+	{ "python/typeshed" },
+	{
+		"mfussenegger/nvim-dap-python",
+		config = function()
+			local mason_path = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/")
+			require("dap-python").setup(mason_path .. "packages/debugpy/venv/bin/python")
+		end,
+	},
+	"nvim-neotest/neotest",
+	{
+		"nvim-neotest/neotest-python",
+		dependencies = "nvim-neotest/neotest",
+		config = function()
+			require("neotest").setup({
+				adapters = {
+					require("neotest-python")({
+						dap = {
+							justMyCode = false,
+							console = "integratedTerminal",
+						},
+						args = { "--log-level", "DEBUG", "--quiet" },
+						runner = "pytest",
+					}),
+				},
+			})
+		end,
+	},
 	{
 		"danymat/neogen",
+		dependencies = "nvim-treesitter/nvim-treesitter",
 		config = function()
 			require("neogen").setup({
+				snippet_engine = "luasnip",
 				enabled = true,
 				languages = {
 					python = {
@@ -202,89 +170,59 @@ lvim.plugins = {
 			})
 		end,
 	},
-	-- golang
+}
+
+lvim.autocommands = {
 	{
-		"olexsmir/gopher.nvim",
-		config = function()
-			require("gopher").setup({
-				commands = {
-					go = "go",
-					gomodifytags = "gomodifytags",
-					gotests = "gotests",
-					impl = "impl",
-					iferr = "iferr",
-				},
-			})
-		end,
-	},
-	"leoluz/nvim-dap-go",
-	-- auto install ls, linter, dap, formatter
-	{
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		config = function()
-			require("mason-tool-installer").setup({
-				ensure_installed = {
-					-- language server
-					"bash-language-server",
-					"pyright",
-					"lua-language-server",
-					"gopls",
-					"marksman",
-					"html-lsp",
-					"typescript-language-server",
-					"css-lsp",
-					"json-lsp",
-					-- formatter
-					"black",
-					"isort",
-					"stylua",
-					"goimports",
-					"gofumpt",
-					"shfmt",
-					"prettier",
-					-- linter
-					"flake8",
-					"eslint_d",
-					"shellcheck",
-					"codespell",
-					"markdownlint",
-					-- dap
-					"debugpy",
-					"go-debug-adapter",
-				},
-				auto_update = false,
-				run_on_start = true,
-				start_delay = 3000,
-				debounce_hours = nil,
-			})
-		end,
+		"FileType",
+		{
+			pattern = { "*.zsh" },
+			callback = function()
+				require("nvim-treesitter.highlight").attach(0, "bash")
+			end,
+		},
 	},
 }
--- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "zsh",
-	callback = function()
-		-- let treesitter use bash highlight for zsh files as well
-		require("nvim-treesitter.highlight").attach(0, "bash")
-	end,
-})
 
--- Setup dap for python
-lvim.builtin.dap.active = true
-local mason_path = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/")
-pcall(function()
-	require("dap-python").setup(mason_path .. "packages/debugpy/venv/bin/python")
-end)
-lvim.builtin.which_key.mappings["dm"] = { "<cmd>lua require('dap-python').test_method()<cr>", "Test Method" }
-lvim.builtin.which_key.mappings["df"] = { "<cmd>lua require('dap-python').test_class()<cr>", "Test Class" }
 lvim.builtin.which_key.vmappings["d"] = {
 	name = "Debug",
 	s = { "<cmd>lua require('dap-python').debug_selection()<cr>", "Debug Selection" },
 }
-
--- Setup dap for golang
-local dap_ok, dapgo = pcall(require, "dap-go")
-if not dap_ok then
-	return
-end
-dapgo.setup()
+lvim.builtin.which_key.mappings["dm"] = { "<cmd>lua require('neotest').run.run()<cr>", "Test Method" }
+lvim.builtin.which_key.mappings["dM"] =
+	{ "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Test Method DAP" }
+lvim.builtin.which_key.mappings["df"] = {
+	"<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>",
+	"Test Class",
+}
+lvim.builtin.which_key.mappings["dF"] = {
+	"<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>",
+	"Test Class DAP",
+}
+lvim.builtin.which_key.mappings["dS"] = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Test Summary" }
+lvim.builtin.which_key.mappings["t"] = {
+	name = "Trouble",
+	t = { "<cmd>TroubleToggle<cr>", "Toggle" },
+	f = { "<cmd>TroubleToggle definitions<cr>", "Definitions" },
+	w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics" },
+	d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics" },
+	q = { "<cmd>TroubleToggle quickfix<cr>", "QuickFix" },
+	l = { "<cmd>TroubleToggle loclist<cr>", "LocationList" },
+	r = { "<cmd>TroubleToggle lsp_references<cr>", "References" },
+}
+lvim.builtin.which_key.mappings["o"] = { "<cmd>Outline<cr>", "Toggle Outline" }
+-- pyright with stubs
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
+local pluginsPath = join_paths(get_runtime_dir(), "site", "pack", "lazy", "opt")
+local opts = {
+	python = {
+		analysis = {
+			autoSearchPaths = true,
+			diagnosticMode = "workspace",
+			useLibraryCodeForTypes = true,
+			stubPath = join_paths(pluginsPath, "python-type-stubs"),
+			typeshedPath = join_paths(pluginsPath, "typeshed"),
+		},
+	},
+}
+require("lvim.lsp.manager").setup("pyright", opts)
