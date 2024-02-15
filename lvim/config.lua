@@ -80,6 +80,20 @@ lvim.plugins = {
 		end,
 	},
 	{
+		"zbirenbaum/copilot.lua",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({
+				panel = {
+					enabled = false,
+				},
+				suggestion = {
+					auto_trigger = true,
+				},
+			})
+		end,
+	},
+	{
 		"folke/trouble.nvim",
 		cmd = "TroubleToggle",
 	},
