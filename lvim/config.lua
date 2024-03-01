@@ -240,3 +240,5 @@ local opts = {
 	},
 }
 require("lvim.lsp.manager").setup("pyright", opts)
+-- do not show __pycache__
+lvim.builtin.nvimtree.setup.filters.custom = { "__pycache__" }
