@@ -32,6 +32,8 @@ linters.setup({
 	},
 	-- spell
 	{ name = "codespell", filetypes = { "javascript", "python" } },
+	-- json
+	{ name = "jsonlint", filetypes = { "json" } },
 })
 
 local code_actions = require("lvim.lsp.null-ls.code_actions")
@@ -70,6 +72,7 @@ lvim.plugins = {
 					"codespell",
 					"markdownlint",
 					"proselint",
+					"jsonlint",
 					-- dap
 					"debugpy",
 				},
