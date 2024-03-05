@@ -3,7 +3,7 @@ local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
 	-- python
 	{ name = "black" },
-	{ name = "isort" },
+	{ name = "isort", args = { "--profile=black" } },
 	-- lua
 	{ name = "stylua" },
 	-- golang
@@ -22,7 +22,11 @@ formatters.setup({
 local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
 	-- python
-	{ name = "flake8", filetypes = { "python" } },
+	{
+		name = "flake8",
+		args = { "--max-line-length=88", "--extend-select=B950", "--extend-ignore=E203,E501,E701" },
+		filetypes = { "python" },
+	},
 	-- frontend
 	{ name = "eslint", filetypes = { "javascript", "typescript" } },
 	-- shell
@@ -245,3 +249,5 @@ local opts = {
 require("lvim.lsp.manager").setup("pyright", opts)
 -- do not show __pycache__
 lvim.builtin.nvimtree.setup.filters.custom = { "__pycache__" }
+-- enable vscode launch.json
+require("dap.ext.vscode").load_launchjs()
