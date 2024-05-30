@@ -124,7 +124,15 @@ lvim.plugins = {
 			require("dap-python").setup(mason_path .. "packages/debugpy/venv/bin/python")
 		end,
 	},
-	"nvim-neotest/neotest",
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+	},
 	{
 		"nvim-neotest/neotest-python",
 		dependencies = "nvim-neotest/neotest",
@@ -184,6 +192,26 @@ lvim.plugins = {
 				css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
 			})
 		end,
+	},
+	-- csv
+	{
+		"cameron-wags/rainbow_csv.nvim",
+		config = true,
+		ft = {
+			"csv",
+			"tsv",
+			"csv_semicolon",
+			"csv_whitespace",
+			"csv_pipe",
+			"rfc_csv",
+			"rfc_semicolon",
+		},
+		cmd = {
+			"RainbowDelim",
+			"RainbowDelimSimple",
+			"RainbowDelimQuoted",
+			"RainbowMultiDelim",
+		},
 	},
 	-- flowwork
 	{
