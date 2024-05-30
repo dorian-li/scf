@@ -1,9 +1,9 @@
+vim.opt.relativenumber = true
 lvim.format_on_save.enabled = true
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
 	-- python
-	{ name = "black" },
-	{ name = "isort", args = { "--profile=black" } },
+	{ name = "ruff" },
 	-- lua
 	{ name = "stylua" },
 	-- golang
@@ -22,11 +22,7 @@ formatters.setup({
 local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
 	-- python
-	{
-		name = "flake8",
-		args = { "--max-line-length=88", "--extend-select=B950", "--extend-ignore=E203,E501,E701" },
-		filetypes = { "python" },
-	},
+	{ name = "ruff" },
 	-- frontend
 	{ name = "eslint", filetypes = { "javascript", "typescript" } },
 	-- shell
@@ -64,13 +60,11 @@ lvim.plugins = {
 					"css-lsp",
 					"json-lsp",
 					-- formatter
-					"black",
-					"isort",
+					"ruff",
 					"stylua",
 					"shfmt",
 					"prettier",
 					-- linter
-					"flake8",
 					"eslint_d",
 					"shellcheck",
 					"codespell",
@@ -189,6 +183,18 @@ lvim.plugins = {
 				css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
 				css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
 			})
+		end,
+	},
+	-- flowwork
+	{
+		"m4xshen/hardtime.nvim",
+		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+		opts = {},
+	},
+	{
+		"tris203/precognition.nvim",
+		config = function()
+			require("precognition").toggle()
 		end,
 	},
 }
