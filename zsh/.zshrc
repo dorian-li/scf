@@ -1,26 +1,30 @@
-install_miniconda() {
-    if [ ! -f "$HOME/miniconda3/bin/conda" ]; then
-        echo "Installing miniconda..."
-        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $HOME/miniconda.sh &&
-        bash $HOME/miniconda.sh -b -p $HOME/miniconda3 &&
-        rm $HOME/miniconda.sh &&
-	echo "Miniconda installed successfully." ||
-        { echo "Failed to install Miniconda."; return 1; }
+install_miniforge() {
+    if [ ! -f "$HOME/miniforge3/bin/conda" ]; then
+        echo "Installing miniforge..."
+        wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -O $HOME/miniforge.sh &&
+        bash $HOME/miniforge.sh -b -p $HOME/miniforge3 &&
+        rm $HOME/miniforge.sh &&
+        echo "Miniforge installed successfully." ||
+        { echo "Failed to install Miniforge."; return 1; }
     fi
 }
-install_miniconda && {
+install_miniforge && {
     AUTOSWITCH_DEFAULT_CONDAENV="base"
-    __conda_setup="$('$HOME/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    __conda_setup="$('$HOME/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
         eval "$__conda_setup"
     else
-        if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
-	    . "$HOME/miniconda3/etc/profile.d/conda.sh"
+        if [ -f "$HOME/miniforge3/etc/profile.d/conda.sh" ]; then
+	    . "$HOME/miniforge3/etc/profile.d/conda.sh"
         else
-	    export PATH="$HOME/miniconda3/bin:$PATH"
+	    export PATH="$HOME/miniforge3/bin:$PATH"
         fi
     fi
     unset __conda_setup
+
+    if [ -f "$HOME/miniforge3/etc/profile.d/mamba.sh" ]; then
+        . "$HOME/miniforge3/etc/profile.d/mamba.sh"
+    fi
 }
 
 antidote_dir="${ZDOTDIR:-$HOME}/.antidote"
