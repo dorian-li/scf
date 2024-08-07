@@ -2,5 +2,6 @@
 
 ## Usage
 
-- Make sure the JetBrains IDE installed IdeaVim, AceJump, IdeaVim-EasyMotion plugins
+- Install plugins: `IdeaVim`, `IdeaVim-Quickscope`
 - Copy config file to `~/.ideavimrc`
+- Other plugins: `GitHub Copilot`, `Rainbow CSV`, `Smart Input`, `VSCode Theme`, `PowerShell`

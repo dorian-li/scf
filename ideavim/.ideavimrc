@@ -1,99 +1,42 @@
-"Basics"
+""" Leader key ---------------------
 let mapleader=" "
 
-set scrolloff=8
-set sidescrolloff=8
+""" Plugins ---------------------
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'machakann/vim-highlightedyank'
+Plug 'dbakker/vim-paragraph-motion'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'preservim/nerdtree'
+set quickscope " Install IdeaVim-Quickscope plugin
 
+""" Common settings ---------------------
+set showmode
+set scrolloff=5
+set incsearch
+set ignorecase smartcase
 set number
 set relativenumber
-
-set hlsearch
-set incsearch
-
-set showmode
-
 set clipboard=unnamed
 set clipboard+=ideaput
 
-set ignorecase smartcase
-
-set history=1000
-
-"Plugins"
-set commentary
-set surround
-set NERDTree
-set matchit
-set easymotion
-set ideajoin
-
-"Mapping"
-nmap <leader>/ :noh<return><CR>
-
-nmap <leader>a <Action>(NewFile)
-nmap <A-m> :NERDTreeToggle<CR>
-
-nmap <leader>h <Action>(PreviousTab)
-nmap <leader>l <Action>(NextTab)
-nmap <leader>1 <Action>(GoToTab1)
-nmap <leader>2 <Action>(GoToTab2)
-nmap <leader>3 <Action>(GoToTab3)
-nmap <leader>4 <Action>(GoToTab4)
-nmap <leader>5 <Action>(GoToTab5)
-nmap <leader>6 <Action>(GoToTab6)
-nmap <leader>7 <Action>(GoToTab7)
-nmap <leader>8 <Action>(GoToTab8)
-nmap <leader>9 <Action>(GoToTab9)
-nmap <leader>0 <Action>(GoToLastTab)
-
-nmap <leader>q <Action>(CloseContent)
-nmap <leader>Q <Action>(ReopenClosedTab)
-
-nmap <leader>sh <Action>(SplitHorizontally)
-nmap <leader>sv <Action>(SplitVertically)
-nmap <A-h> <c-w>h
-nmap <A-l> <c-w>l
-nmap <A-j> <c-w>j
-nmap <A-k> <c-w>k
-
+""" Mappings ---------------------
+nmap <leader>h :noh<return><CR>
+nmap <leader>lr <Action>(RenameElement)
+nmap <leader>lf <Action>(ReformatCode)
+nmap <leader>db <Action>(ToggleLineBreakpoint)
+nmap <leader>dc <Action>(Debug)
+nmap <leader>e :NERDTreeToggle<CR>
+nmap <leader>h hlsearch
+nmap <leader>c <Action>(CloseContent)
+nmap <leader>/ gcc
+vmap <leader>/ gc
+nmap H <Action>(PreviousTab)
+nmap L <Action>(NextTab)
+nmap J <Action>(EditorJoinLines)
+nmap K <Action>(QuickJavaDoc)
 vmap > >gv
 vmap < <gv
-
-vnoremap J :m '>+1<CR>v
-vnoremap K :m '<-2<CR>v
-
-nmap J 4j
-nmap K 4k
-
-nmap <C-j> <Action>(EditorJoinLines)
-nmap <C-k> <Action>(QuickJavaDoc)
-
-set g:EasyMotion_do_mapping=0
-map s <Plug>(easymotion-s2)
-map f <Plug>(easymotion-fl)
-map F <Plug>(easymotion-Fl)
-map t <Plug>(easymotion-tl)
-map T <Plug>(easymotion-Tl)
-
-nmap <leader>n <Action>(GotoNextElementUnderCaretUsage)
-nmap <leader>N <Action>(GotoPrevElementUnderCaretUsage)
-
-nmap gr <Action>(FindUsages)
-nmap <leader>e <Action>(ShowErrorDescription)
-
-nmap <leader>b <Action>(ToggleLineBreakpoint)
-nmap <leader>db <Action>(Debug)
-nmap <leader>dc <Action>(ChooseDebugConfiguration)
-nmap <leader>c <Action>(Stop)<Action>(HideActiveWindow)
-
-nmap <leader>r <Action>(RenameElement)
-nmap <leader>f <Action>(ReformatCode)
-nmap <leader>sa <Action>(SearchEverywhere)
-
-vmap <C-c> y<Esc>
-vmap <C-v> p<Esc>
-imap <C-v> <Esc>p
-
-map <Enter> <Action>(EditorSelectWord)
-map <BS> <Action>(EditorUnSelectWord)
-
+nmap <Enter> <Action>(EditorSelectWord)
+nmap <BS> <Action>(EditorUnSelectWord)
