@@ -61,7 +61,7 @@ lvim.plugins = {
 					"json-lsp",
 					-- formatter
 					"ruff",
-					"stylua",
+					"stylua", --need `unzip`
 					"shfmt",
 					"prettier",
 					-- linter
@@ -77,20 +77,6 @@ lvim.plugins = {
 				auto_update = true,
 				run_on_start = true,
 				start_delay = 3000,
-			})
-		end,
-	},
-	{
-		"zbirenbaum/copilot.lua",
-		event = "InsertEnter",
-		config = function()
-			require("copilot").setup({
-				panel = {
-					enabled = false,
-				},
-				suggestion = {
-					auto_trigger = true,
-				},
 			})
 		end,
 	},
